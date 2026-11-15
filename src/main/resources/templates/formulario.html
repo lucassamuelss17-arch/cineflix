@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CineFlix - Cadastro</title>
+
+    <style>
+        body {
+            background: #141414;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #e50914;
+        }
+
+        form {
+            max-width: 500px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 18px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #e50914;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>CineFlix</h1>
+    <h2>Cadastrar novo filme</h2>
+
+    <form th:action="@{/salvar}" th:object="${filme}" method="post">
+
+        <label>Título:</label>
+        <input type="text" th:field="*{titulo}" required>
+
+        <label>Diretor:</label>
+        <input type="text" th:field="*{diretor}" required>
+
+        <label>Ano de lançamento:</label>
+        <input type="number" th:field="*{anoLancamento}">
+
+        <label>Gênero:</label>
+        <input type="text" th:field="*{genero}">
+
+        <label>Duração (minutos):</label>
+        <input type="number" th:field="*{duracao}">
+
+        <label>Sinopse:</label>
+        <textarea th:field="*{sinopse}"></textarea>
+
+        <button type="submit">Salvar filme</button>
+
+    </form>
+
+    <br>
+    <a href="/" style="color:white;">Voltar ao catálogo</a>
+
+</body>
+</html>

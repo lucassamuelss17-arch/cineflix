@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CineFlix - Editar Filme</title>
+
+    <style>
+        body {
+            background: #141414;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 30px auto;
+            background: #222;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #e50914;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            box-sizing: border-box;
+            background: #333;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 5px;
+        }
+
+        button, .voltar {
+            display: inline-block;
+            background: #e50914;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .voltar {
+            background: #555;
+            margin-left: 8px;
+        }
+
+        button:hover {
+            background: #b80710;
+        }
+
+        .voltar:hover {
+            background: #444;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>CineFlix</h1>
+        <h2>Editar filme</h2>
+
+        <form th:action="@{/atualizar}"
+              th:object="${filme}"
+              method="post">
+
+            <input type="hidden" th:field="*{id}">
+			
+			<!-- Preservar pôster e trailer -->
+			<input type="hidden" th:field="*{posterPath}">
+			<input type="hidden" th:field="*{trailerKey}">
+
+            <label>Título:</label>
+            <input type="text" th:field="*{titulo}" required>
+
+            <label>Diretor:</label>
+            <input type="text" th:field="*{diretor}" required>
+
+            <label>Ano de lançamento:</label>
+            <input type="number" th:field="*{anoLancamento}">
+
+            <label>Gênero:</label>
+            <input type="text" th:field="*{genero}">
+
+            <label>Duração (minutos):</label>
+            <input type="number" th:field="*{duracao}">
+
+            <label>Sinopse:</label>
+            <textarea th:field="*{sinopse}" rows="5"></textarea>
+
+            <button type="submit">Salvar alterações</button>
+
+            <a href="/" class="voltar">Cancelar</a>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

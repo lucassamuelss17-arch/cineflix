@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CineFlix - Detalhes do Filme</title>
+
+    <style>
+        body {
+            background: #141414;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: #222;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #e50914;
+            font-size: 32px;
+        }
+
+        h2 {
+            color: white;
+        }
+
+        .informacao {
+            margin: 18px 0;
+            font-size: 16px;
+        }
+
+        .informacao strong {
+            color: #e50914;
+        }
+
+        .sinopse {
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        /* Área dos botões */
+        .botoes-acoes {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .botao {
+            display: inline-block;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .voltar {
+            background: #555;
+        }
+
+        .editar {
+            background: #2878d0;
+        }
+
+        .excluir {
+            background: #e50914;
+        }
+
+        .botao:hover {
+            opacity: 0.85;
+        }
+
+        /* Área do trailer */
+        .area-trailer {
+            margin-top: 35px;
+        }
+
+        .area-trailer h2 {
+            color: #e50914;
+            margin-bottom: 15px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>CineFlix</h1>
+
+        <h2 th:text="${filme.titulo}"></h2>
+
+        <div class="informacao">
+            <strong>Diretor:</strong>
+            <span th:text="${filme.diretor}"></span>
+        </div>
+
+        <div class="informacao">
+            <strong>Ano de lançamento:</strong>
+            <span th:text="${filme.anoLancamento}"></span>
+        </div>
+
+        <div class="informacao">
+            <strong>Gênero:</strong>
+            <span th:text="${filme.genero}"></span>
+        </div>
+
+        <div class="informacao">
+            <strong>Duração:</strong>
+            <span th:text="${filme.duracao} + ' minutos'"></span>
+        </div>
+
+        <div class="informacao">
+            <strong>Sinopse:</strong>
+            <p class="sinopse" th:text="${filme.sinopse}"></p>
+        </div>
+
+        <!-- Trailer do filme -->
+        <div class="area-trailer"
+             th:if="${filme.trailerKey != null and !filme.trailerKey.isEmpty()}">
+
+            <h2>Trailer do filme</h2>
+
+            <div class="video-container">
+                <iframe
+                    th:src="'https://www.youtube.com/embed/' + ${filme.trailerKey}"
+                    title="Trailer do filme"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+        </div>
+
+        <!-- Botões de gerenciamento -->
+        <div class="botoes-acoes">
+
+            <a href="/" class="botao voltar">
+                ← Voltar ao catálogo
+            </a>
+
+            <a th:href="@{/editar/{id}(id=${filme.id})}"
+               class="botao editar">
+                ✏ Editar filme
+            </a>
+
+            <a th:href="@{/excluir/{id}(id=${filme.id})}"
+               class="botao excluir"
+               onclick="return confirm('Tem certeza que deseja excluir este filme?')">
+                🗑 Excluir filme
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
